@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Script ✨ - Premium Makeup Products</title>
+    <meta name="description" content="Shop the finest collection of high-quality, affordable makeup products at Glow Script ✨.">
+    <meta name="author" content="Glow Script ✨">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Glow Script ✨ - Premium Makeup Products">
+    <meta property="og:description" content="Shop the finest collection of high-quality, affordable makeup products at Glow Script ✨.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{% static 'assets/og-image.png' %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@glowscript">
+    <meta name="twitter:image" content="{% static 'assets/og-image.png' %}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- Load React -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react-router-dom@5.3.0/umd/react-router-dom.min.js"></script>
+    <script src="https://unpkg.com/@fortawesome/fontawesome-svg-core@1.2.36/styles.css"></script>
+    <script src="https://unpkg.com/@fortawesome/react-fontawesome@0.1.15/index.min.js"></script>
+    <script src="https://unpkg.com/@fortawesome/free-solid-svg-icons@5.15.4/index.min.js"></script>
+
+    <!-- Load your React components -->
+    <script type="text/babel" src="{% static 'js/App.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/components/ProductCard.jsx' %}"></script>
+    <script type="text/babel" src="{% static 'js/components/Wishlist.jsx' %}"></script>
+
+    <!-- Initialize React app -->
+    <script type="text/babel">
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+
+    <header>
+        <nav>
+            <div class="logo">Glow Script ✨</div>
+            <form class="search-bar" id="search-form" action="#" method="get">
+                <input type="text" id="search-input" placeholder="Search products..." name="q" autocomplete="off">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <ul class="nav-links">
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li id="header-wishlist" class="wishlist-icon">
+                    <a href="#" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </a>
+                </li>
+                <li class="cart-icon">
+                    <a href="#" title="Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+    </header>
+
+    <main>
+        <section class="hero" >
+            <h1>Welcome to Glow Script</h1>
+            <p>Discover your perfect beauty products</p>
+            <a href="#products" class="cta-button">Shop Now</a>
+        </section>
+
+        <section class="product-offer" style="background: linear-gradient(100deg, #a8002c 60%, #e8004c 100%); position: relative; overflow: hidden; border-radius:0; margin-bottom:0;">
+            <div class="offer-slider">
+                <button class="offer-arrow offer-arrow-left" aria-label="Previous Offer">&#8592;</button>
+                <div class="offer-slider-track">
+                    <!-- Offer 1 -->
+                    <div class="offer-banner-content fullwidth-offer offer-slide active">
+                        <div class="offer-banner-image-left">
+                            <img src="{% static 'assets/lipstick2.jpg' %}" alt="Lipstick Offer" />
+                        </div>
+                        <div class="offer-banner-text-center">
+                            <div class="offer-main-title-purplle">
+                                <span class="gold-text">0% DRYNESS</span><br>
+                                <span class="red-text">100% VELVET</span><br>
+                                <span class="white-text">SMOOTHNESS</span>
+                            </div>
+                            <div class="offer-badge-purplle">NEW</div>
+                            <div class="offer-subtitle-purplle">Comfy Matte Velvet Touch Lipstick</div>
+                            <div class="offer-message-purplle">
+                                <strong>Free gift of your choice</strong><br>
+                                on ₹599 + Buy 2, get extra 10% off
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Offer 2 -->
+                    <div class="offer-banner-content fullwidth-offer offer-slide">
+                        <div class="offer-banner-image-left">
+                            <img src="{% static 'assets/mascara.jpg' %}" alt="Mascara Offer" />
+                        </div>
+                        <div class="offer-banner-text-center">
+                            <div class="offer-main-title-purplle">
+                                <span class="gold-text">LASHES</span><br>
+                                <span class="red-text">THAT WOW</span><br>
+                                <span class="white-text">VOLUME</span>
+                            </div>
+                            <div class="offer-badge-purplle">HOT</div>
+                            <div class="offer-subtitle-purplle">Lakame Volumizing Mascara</div>
+                            <div class="offer-message-purplle">
+                                <strong>Flat 15% Off</strong><br>
+                                + Free shipping on all orders
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Offer 3: Summer Offer -->
+                    <div class="offer-banner-content fullwidth-offer offer-slide">
+                        <div class="offer-banner-image-left">
+                            <img src="{% static 'assets/Summer.jpg' %}" alt="Summer Offer" />
+                        </div>
+                        <div class="offer-banner-text-center">
+                            <div class="offer-main-title-purplle">
+                                <span class="gold-text">SUMMER</span><br>
+                                <span class="red-text">HOT DEALS</span><br>
+                                <span class="white-text">UP TO 10% OFF</span>
+                            </div>
+                            <div class="offer-badge-purplle">LIMITED</div>
+                            <div class="offer-subtitle-purplle">Summer Beauty Essentials</div>
+                            <div class="offer-message-purplle">
+                                <strong>Enjoy up to 10% off</strong><br>
+                                on all summer products. Shop now and glow all season!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="offer-arrow offer-arrow-right" aria-label="Next Offer">&#8594;</button>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="all">All Categories</option>
+                    <option value="face">Face</option>
+                    <option value="eyes">Eyes</option>
+                    <option value="lips">Lips</option>
+                </select>
+                <select id="price-filter">
+                    <option value="all">All Prices</option>
+                    <option value="low">Low to High</option>
+                    <option value="high">High to Low</option>
+                </select>
+            </div>
+            <div class="product-grid">
+                <!-- Product cards will be added here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2>About Glow Script ✨</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>We believe in making high-quality makeup accessible to everyone.</p>
+                    <p>Our products are cruelty-free, vegan, and made with the finest ingredients.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>10,000+</h3>
+                        <p>Happy Customers</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100+</h3>
+                        <p>Products</p>
+                    </div>
+                    <div class="stat">
+                        <h3>24/7</h3>
+                        <p>Customer Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews">
+            <h2>What Our Customers Say</h2>
+            <div class="reviews-container">
+                <!-- Reviews will be added here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Get in Touch</h2>
+            <form id="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be added here by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="total-price">$0.00</span>
+            </div>
+            <button class="checkout-button">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="product-modal">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-product">
+                <div class="modal-product-image">
+                    <img src="" alt="">
+                </div>
+                <div class="modal-product-details">
+                    <h2 class="modal-product-name"></h2>
+                    <div class="modal-product-price-rating">
+                        <span class="modal-product-price"></span>
+                        <span class="modal-product-rating">
+                            <span class="modal-stars">★★★★★</span>
+                            <span class="modal-review-count">(0)</span>
+                        </span>
+                    </div>
+                    <h3 class="modal-desc-title">Description</h3>
+                    <p class="modal-product-description"></p>
+                    <div class="modal-product-category"></div>
+                    <div class="modal-actions">
+                        <button class="modal-wishlist" title="Add to Wishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-overview">
+                <!-- Gallery images will be injected here by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div class="wishlist-sidebar">
+        <div class="wishlist-header">
+            <h3>Your Wishlist</h3>
+            <button class="close-wishlist"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="wishlist-items">
+            <!-- Wishlist items will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2024 Glow Script ✨. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

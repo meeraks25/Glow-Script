@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlist - Glow Script ✨</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #fff0fa 0%, #f3e6fa 100%);
+        }
+        .wishlist-header {
+            text-align: center;
+            margin-top: 3rem;
+            color: #ff69b4;
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        #wishlist-items {
+            max-width: 800px;
+            margin: 2.5rem auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(255,105,180,0.10);
+            padding: 2.5rem 2rem;
+            min-height: 200px;
+        }
+        .wishlist-empty {
+            color: #bbb;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .wishlist-product {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #ffe0f0;
+            transition: all 0.3s ease;
+        }
+        .wishlist-product:last-child {
+            border-bottom: none;
+        }
+        .wishlist-product:hover {
+            background: #fff0fa;
+            transform: translateX(10px);
+        }
+        .wishlist-product img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .wishlist-product-info {
+            flex: 1;
+        }
+        .wishlist-product-name {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .wishlist-product-price {
+            color: #ff1493;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .wishlist-product-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .wishlist-product-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .add-to-cart-btn {
+            background: #ff69b4;
+            color: white;
+        }
+        .add-to-cart-btn:hover {
+            background: #ff1493;
+        }
+        .remove-from-wishlist {
+            background: #ffe0f0;
+            color: #ff1493;
+        }
+        .remove-from-wishlist:hover {
+            background: #ffb6d5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Glow Script ✨</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#products">Products</a></li>
+                <li id="header-wishlist" class="wishlist-icon">
+                    <a href="{% url 'wishlist' %}" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="wishlist-count">0</span>
+                    </a>
+                </li>
+                <li class="cart-icon">
+                    <a href="{% url 'cart' %}" title="Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <span class="cart-count">0</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="wishlist-header">Your Wishlist</div>
+        <div id="wishlist-items">
+            <div class="wishlist-empty">Your wishlist is empty. Add some products you love! 💖</div>
+        </div>
+    </main>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const items = window.products.filter(p => wishlist.includes(p.id));
+            const container = document.getElementById('wishlist-items');
+            
+            if (items.length === 0) {
+                container.innerHTML = '<div class="wishlist-empty">Your wishlist is empty. Add some products you love! 💖</div>';
+            } else {
+                container.innerHTML = items.map(product => `
+                    <div class="wishlist-product" data-id="${product.id}">
+                        <img src="{% static 'assets/' %}${product.image.split('/').pop()}" alt="${product.name}">
+                        <div class="wishlist-product-info">
+                            <div class="wishlist-product-name">${product.name}</div>
+                            <div class="wishlist-product-price">₹${product.price.toFixed(2)}</div>
+                            <div class="wishlist-product-actions">
+                                <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                                <button class="remove-from-wishlist" onclick="removeFromWishlist(${product.id})">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Update wishlist count in header
+            const wishlistCount = document.querySelector('.wishlist-count');
+            if (wishlistCount) {
+                wishlistCount.textContent = items.length;
+                wishlistCount.style.display = items.length > 0 ? 'block' : 'none';
+            }
+        });
+
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (!cart.includes(productId)) {
+                cart.push(productId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+            }
+        }
+
+        function removeFromWishlist(productId) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            wishlist = wishlist.filter(id => id !== productId);
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            
+            // Remove the product element
+            const productElement = document.querySelector(`.wishlist-product[data-id="${productId}"]`);
+            if (productElement) {
+                productElement.remove();
+            }
+
+            // Update wishlist count
+            const wishlistCount = document.querySelector('.wishlist-count');
+            if (wishlistCount) {
+                const newCount = wishlist.length;
+                wishlistCount.textContent = newCount;
+                wishlistCount.style.display = newCount > 0 ? 'block' : 'none';
+            }
+
+            // Show empty message if no items left
+            const container = document.getElementById('wishlist-items');
+            if (wishlist.length === 0) {
+                container.innerHTML = '<div class="wishlist-empty">Your wishlist is empty. Add some products you love! 💖</div>';
+            }
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+                cartCount.style.display = cart.length > 0 ? 'block' : 'none';
+            }
+        }
+    </script>
+</body>
+</html> 
