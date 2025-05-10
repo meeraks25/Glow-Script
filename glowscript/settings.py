@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-bd1766park8w_df2cda-+momd^s-%unkbexwgjca2l)3j_k*px
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['meera25.pythonanywhere.com']
+ALLOWED_HOSTS = ['glow-script.onrender.com']
 
 
 INSTALLED_APPS = [
